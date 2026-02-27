@@ -4,7 +4,7 @@
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome) [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE.txt) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**A Curated List of Memory-Augmented World Models for Video Generation, focusing on how memory mechanisms enable long-horizon consistency, revisit fidelity, and scalable interactive generation (2025-2026).**
+**A Curated List of Memory-Augmented World Models for Video Generation, focusing on how memory mechanisms enable long-horizon consistency, revisit fidelity, and scalable interactive generation.**
 
 </div>
 
@@ -20,15 +20,18 @@
 
 ## Overview
 
+- [Awesome World Models with Memory](#awesome-world-models-with-memory)
+  - [News \& Updates](#news--updates)
+  - [Overview](#overview)
   - [Aim of the Project](#aim-of-the-project)
-  - [Background & Motivation](#background--motivation)
+  - [Background \& Motivation](#background--motivation)
   - [External Explicit Memory Modules](#external-explicit-memory-modules)
-  - [Memory Compression & Retrieval Mechanisms](#memory-compression--retrieval-mechanisms)
-  - [Differentiable Neural Storage & Hidden State Enhancement](#differentiable-neural-storage--hidden-state-enhancement)
+  - [Memory Compression \& Retrieval Mechanisms](#memory-compression--retrieval-mechanisms)
+  - [Differentiable Neural Storage \& Hidden State Enhancement](#differentiable-neural-storage--hidden-state-enhancement)
   - [Attention / Transformer Extensions](#attention--transformer-extensions)
   - [Geometric / Spatial Memory](#geometric--spatial-memory)
-  - [Training Stability & Anti-drift Strategies](#training-stability--anti-drift-strategies)
-  - [Benchmarks & Evaluation](#benchmarks--evaluation)
+  - [Training Stability \& Anti-drift Strategies](#training-stability--anti-drift-strategies)
+  - [Benchmarks \& Evaluation](#benchmarks--evaluation)
   - [Open-source Systems](#open-source-systems)
   - [Related World Model Lists](#related-world-model-lists)
   - [Citation](#citation)
