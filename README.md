@@ -33,6 +33,7 @@
   - [Training Stability \& Anti-drift Strategies](#training-stability--anti-drift-strategies)
   - [Benchmarks \& Evaluation](#benchmarks--evaluation)
   - [Open-source Systems](#open-source-systems)
+  - [Broader Long-Context Video Generation](#broader-long-context-video-generation)
   - [Related World Model Lists](#related-world-model-lists)
   - [Citation](#citation)
 
@@ -178,9 +179,6 @@ flowchart TD
 - [**2025**] **Long-Context SSM Video World Models**, "Long-Context State-Space Video World Models". [![arXiv](https://img.shields.io/badge/arXiv-2505.20171-b31b1b.svg)](https://arxiv.org/abs/2505.20171) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://ryanpo.com/ssm_wm/)
   > Block-wise SSM scanning to extend temporal memory (reducing attention long-context cost), combined with local dense attention for consecutive frame consistency. Evaluated on Memory Maze and Minecraft.
 
-- [**2025**] **TTT-Video-DiT**, "One-Minute Video Generation with Test-Time Training". [![arXiv](https://img.shields.io/badge/arXiv-2504.05298-b31b1b.svg)](https://arxiv.org/abs/2504.05298) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://test-time-training.github.io/video-dit/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/test-time-training/ttt-video-dit)
-  > Inserts Test-Time Training (TTT) layers into a pretrained Transformer, whose hidden states are themselves neural networks (more expressive than SSM/Mamba). Enables one-minute video generation (300k+ tokens) from text storyboards. Leads baselines (Mamba 2, Gated DeltaNet, sliding-window attention) by 34 Elo points in human evaluation. CVPR 2025.
-
 ---
 
 ## Attention / Transformer Extensions
@@ -257,6 +255,15 @@ flowchart TD
 
 - [**2026**] **LingBot-World**, "Advancing Open-source World Models". [![arXiv](https://img.shields.io/badge/arXiv-2601.20540-b31b1b.svg)](https://arxiv.org/abs/2601.20540) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/robbyant/lingbot-world)
   > Releases open-source world simulator LingBot-World: emphasizes minute-level temporal context consistency (long-term memory) and real-time interactive capability. Claims 16 FPS with <1s latency. Public code and model downloads (HuggingFace/ModelScope).
+
+---
+
+## Broader Long-Context Video Generation
+
+*The following works address long-context video generation via persistent hidden states or efficient sequence modeling, but do not explicitly design or evaluate "memory mechanisms" (e.g., retrieval, revisit consistency, loop closure). They are included here because their hidden-state architectures are functionally related to memory — encoding past information into compressed internal representations — and may inspire future memory-specific designs.*
+
+- [**2025**] **TTT-Video-DiT**, "One-Minute Video Generation with Test-Time Training". [![arXiv](https://img.shields.io/badge/arXiv-2504.05298-b31b1b.svg)](https://arxiv.org/abs/2504.05298) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://test-time-training.github.io/video-dit/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/test-time-training/ttt-video-dit)
+  > Inserts Test-Time Training (TTT) layers into a pretrained Transformer, whose hidden states are themselves neural networks (more expressive than SSM/Mamba). Enables one-minute video generation (300k+ tokens) from text storyboards. Leads baselines by 34 Elo points in human evaluation. CVPR 2025. **Why supplementary:** TTT layers function as a long-context sequence modeling layer rather than a memory mechanism per se — the paper does not frame itself around memory design, nor does it evaluate revisit consistency or memory-specific tasks.
 
 ---
 
