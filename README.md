@@ -178,6 +178,9 @@ flowchart TD
 - [**2025**] **Long-Context SSM Video World Models**, "Long-Context State-Space Video World Models". [![arXiv](https://img.shields.io/badge/arXiv-2505.20171-b31b1b.svg)](https://arxiv.org/abs/2505.20171) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://ryanpo.com/ssm_wm/)
   > Block-wise SSM scanning to extend temporal memory (reducing attention long-context cost), combined with local dense attention for consecutive frame consistency. Evaluated on Memory Maze and Minecraft.
 
+- [**2025**] **TTT-Video-DiT**, "One-Minute Video Generation with Test-Time Training". [![arXiv](https://img.shields.io/badge/arXiv-2504.05298-b31b1b.svg)](https://arxiv.org/abs/2504.05298) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://test-time-training.github.io/video-dit/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/test-time-training/ttt-video-dit)
+  > Inserts Test-Time Training (TTT) layers into a pretrained Transformer, whose hidden states are themselves neural networks (more expressive than SSM/Mamba). Enables one-minute video generation (300k+ tokens) from text storyboards. Leads baselines (Mamba 2, Gated DeltaNet, sliding-window attention) by 34 Elo points in human evaluation. CVPR 2025.
+
 ---
 
 ## Attention / Transformer Extensions
