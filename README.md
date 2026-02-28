@@ -67,6 +67,42 @@ The "memory problem" in video-generative world models can be summarized as four 
 
 The overall trend is: memory mechanisms are shifting from "stuff more frames into context" toward a combined approach of **retrieval + compression + alignment (geometric or positional encoding) + training stabilization**.
 
+### Unified Architecture Overview
+
+```mermaid
+flowchart TD
+  A[Conditional Input<br/>Initial Frame / Reference Image<br/>Text Prompt<br/>Action or Camera Trajectory] --> B[Encoder<br/>VAE / Tokenizer]
+  B --> C[Generation Backbone<br/>DiT / AR-Video-Diffusion / World-Model]
+  C --> D[Output Video Segment / Next Frame]
+
+  subgraph M[Memory Modules - Composable]
+    M1[External Explicit Memory<br/>Memory Bank / Cache<br/>Retrieve + Update]
+    M2[Compressed / Hierarchical Memory<br/>Packing / HPMC / Token Compressor]
+    M3[Hidden State Persistence<br/>RNN / LSTM / SSM]
+    M4[Geometric / Spatial Memory<br/>Point Cloud / Surfel / Local Anchors<br/>or PE Alignment]
+  end
+
+  B --> M1
+  B --> M2
+  B --> M3
+  B --> M4
+
+  M1 --> C
+  M2 --> C
+  M3 --> C
+  M4 --> C
+
+  subgraph E[System-Level Scalability - Mostly Inference-Side]
+    E1[KV-cache Compression<br/>TempCache etc.]
+    E2[Sparse Attention / Routing<br/>AnnSA / AnnCA / MoGA]
+    E3[Fixed Context Packing<br/>FramePack]
+  end
+
+  E1 --> C
+  E2 --> C
+  E3 --> C
+```
+
 ---
 
 ## External Explicit Memory Modules
@@ -74,16 +110,16 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 *Entity/shot/segment-level Memory Bank, with on-demand retrieval and update (narrative, multi-shot, multi-round editing).*
 
 - [**2026**] **VideoMemory**, "VideoMemory: Toward Consistent Video Generation via Memory Integration". [![arXiv](https://img.shields.io/badge/arXiv-2601.03655-b31b1b.svg)](https://arxiv.org/abs/2601.03655) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://hit-perfect.github.io/VideoMemory/)
-  > Entity-centric Dynamic Memory Bank (character/prop/background slots), shot-level "retrieve-update", combined with multi-agent script decomposition to shots and keyframe+video generation.
+  > Entity-centric Dynamic Memory Bank (character/prop/background slots), shot-level "retrieve-update", combined with multi-agent script decomposition to shots and keyframe+video generation. DINOv2 similarity metrics show significantly better character/prop/background consistency across 4/8/12 shots vs. baselines.
 
 - [**2026**] **Memory-V2V**, "Memory-V2V: Augmenting Video-to-Video Diffusion Models with Memory". [![arXiv](https://img.shields.io/badge/arXiv-2601.16296-b31b1b.svg)](https://arxiv.org/abs/2601.16296) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://dohunlee1.github.io/MemoryV2V/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/DoHunLee1/Memory-V2V)
-  > External cache memory for multi-round video editing: retrieval (VideoFOV overlap / source similarity) + dynamic tokenization + learnable token compressor.
+  > External cache memory for multi-round video editing: retrieval (VideoFOV overlap / source similarity) + dynamic tokenization + learnable token compressor. Adaptive token merging achieves >30% FLOPs and runtime reduction without quality degradation.
 
 - [**2025**] **OneStory**, "OneStory: Coherent Multi-Shot Video Generation with Adaptive Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.07802-b31b1b.svg)](https://arxiv.org/abs/2512.07802) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://zhaochongan.github.io/projects/OneStory/)
   > Reformulates multi-shot generation as next-shot prediction; Frame Selection builds semantically-relevant global memory; Adaptive Conditioner does importance-guided patch compression and direct injection.
 
 - [**2025**] **Context as Memory**, "Context as Memory: Scene-Consistent Interactive Long Video Generation with Memory Retrieval". [![arXiv](https://img.shields.io/badge/arXiv-2506.03141-b31b1b.svg)](https://arxiv.org/abs/2506.03141) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://context-as-memory.github.io/)
-  > Directly stores history frames as memory and concatenates at input dimension; Memory Retrieval uses camera FOV overlap to filter relevant frames, reducing computational explosion.
+  > Directly stores history frames as memory and concatenates at input dimension; Memory Retrieval uses camera FOV overlap to filter relevant frames, reducing computational explosion. Claims SOTA memory capability on interactive long video with open-domain generalization.
 
 - [**2025**] **VMem**, "VMem: Surfel Memory of Views". [![arXiv](https://img.shields.io/badge/arXiv-2506.18903-b31b1b.svg)](https://arxiv.org/abs/2506.18903) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/runjiali-rl/vmem)
   > Surfel-indexed view memory, anchoring historical views to surface elements for improved long-term consistency.
@@ -104,13 +140,13 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 *Compress infinite history into a fixed budget (packing, summarization, hierarchical compression), or activate only "relevant memory" in attention.*
 
 - [**2026**] [**Infinite-World**] **Infinite-World**, "Infinite-World: Scaling Interactive World Models to 1000-Frame Horizons via Pose-Free Hierarchical Memory". [![arXiv](https://img.shields.io/badge/arXiv-2602.02393-b31b1b.svg)](https://arxiv.org/abs/2602.02393) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://rq-wu.github.io/projects/infinite-world/index.html) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/MeiGen-AI/Infinite-World)
-  > Hierarchical Pose-free Memory Compressor (HPMC) recursively compresses history latents to a fixed budget; combined with uncertainty-aware action annotation and revisit-dense finetune to activate loop-closure. Open-source code + weights.
+  > Hierarchical Pose-free Memory Compressor (HPMC) recursively compresses history latents to a fixed budget; combined with uncertainty-aware action annotation and revisit-dense finetune to activate loop-closure. Reports higher ELO scores in user studies and strong VBench metrics. Open-source code + weights.
 
 - [**2025**] **MemFlow**, "MemFlow: Flowing Adaptive Memory for Consistent and Efficient Long Video Narratives". [![arXiv](https://img.shields.io/badge/arXiv-2512.14699-b31b1b.svg)](https://arxiv.org/abs/2512.14699) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/KlingTeam/MemFlow)
-  > Narrative Adaptive Memory: retrieves and updates memory bank by current paragraph prompt; Sparse Memory Activation: activates only the most relevant memory tokens in attention, balancing efficiency.
+  > Narrative Adaptive Memory: retrieves and updates memory bank by current paragraph prompt; Sparse Memory Activation: activates only the most relevant memory tokens in attention, balancing efficiency. Only ~7.9% speed overhead vs. memory-free baseline while significantly improving consistency.
 
 - [**2025**] **WorldPack**, "WorldPack: Compressed Memory Improves Spatial Consistency in Video World Modeling". [![arXiv](https://img.shields.io/badge/arXiv-2512.02473-b31b1b.svg)](https://arxiv.org/abs/2512.02473)
-  > Compressed memory via trajectory packing (improving context efficiency) + memory retrieval (maintaining long rollout consistency and spatial reasoning).
+  > Compressed memory via trajectory packing (improving context efficiency) + memory retrieval (maintaining long rollout consistency and spatial reasoning). Significantly outperforms strong baselines on LoopNav benchmark.
 
 - [**2025**] **Pack and Force Your Memory**, "Pack and Force Your Memory: Long-form and Consistent Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2510.01784-b31b1b.svg)](https://arxiv.org/abs/2510.01784)
   > MemoryPack: learnable context retrieval (combining text and image global guidance) for short/long dependencies; Direct Forcing: single-step approximation to improve training-inference alignment and mitigate error accumulation.
@@ -128,7 +164,7 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
   > Unifies ego-motion and object motion as Lie group flows, building equivariant latent memory map; maintains stable world state in partially observable environments.
 
 - [**2025**] **RELIC**, "RELIC: Interactive Video World Model with Long-Horizon Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.04040-b31b1b.svg)](https://arxiv.org/abs/2512.04040) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://relic-worldmodel.github.io/)
-  > Highly compressed history latent tokens (with relative actions and absolute camera poses) as long-term memory in KV cache; self-distillation/self-forcing converts bidirectional teacher to causal student.
+  > Highly compressed history latent tokens (with relative actions and absolute camera poses) as long-term memory in KV cache; self-distillation/self-forcing converts bidirectional teacher to causal student. 14B model achieves 16 FPS with superior action-following and spatial memory retrieval.
 
 - [**2025**] **VideoSSM**, "VideoSSM: Autoregressive Long Video Generation with Hybrid State-Space Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.04519-b31b1b.svg)](https://arxiv.org/abs/2512.04519)
   > Hybrid memory: sliding-window local lossless cache (short memory) + SSM compressed global state (long memory), treating generation as a recurrent dynamical system updating compressed states.
@@ -146,13 +182,13 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 *Sparse attention, KV-cache compression, long-context routing. Core goal: make "longer history usable without inference blowup".*
 
 - [**2026**] **TempCache / AnnSA / AnnCA**, "Fast Autoregressive Video Diffusion and World Models with Temporal Cache Compression and Sparse Attention". [![arXiv](https://img.shields.io/badge/arXiv-2602.01801-b31b1b.svg)](https://arxiv.org/abs/2602.01801) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://dvirsamuel.github.io/fast-auto-regressive-video/)
-  > Training-free attention acceleration: TempCache (KV-cache temporal merging) + AnnSA (self-attention ANN sparsification) + AnnCA (cross-attention per-frame prompt token filtering). Targets long-rollout inference for AR video diffusion and world models.
+  > Training-free attention acceleration: TempCache (KV-cache temporal merging) + AnnSA (self-attention ANN sparsification) + AnnCA (cross-attention per-frame prompt token filtering). Reports 5-10x end-to-end speedup while maintaining near-constant peak memory during long rollouts.
 
 - [**2025**] [**FramePack**] **FramePack**, "Packing Input Frame Context in Next-Frame Prediction Models for Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2504.12626-b31b1b.svg)](https://arxiv.org/abs/2504.12626) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/lllyasviel/FramePack)
-  > Frame context packing: compresses arbitrary number of frames into fixed-length context (independent of video length); proposes anti-drifting sampling to reduce exposure bias / error accumulation. Official open-source implementation.
+  > Frame context packing: compresses arbitrary number of frames into fixed-length context (independent of video length); proposes anti-drifting sampling to reduce exposure bias / error accumulation. Makes video diffusion training/inference bottleneck approach that of image diffusion. Official open-source implementation, widely adopted in practice.
 
 - [**2025**] **MoGA**, "MoGA: Mixture-of-Groups Attention for End-to-End Long Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2510.18692-b31b1b.svg)](https://arxiv.org/abs/2510.18692)
-  > Semantic routing of tokens to groups for sparse attention (similar to MoE routing but for attention), eliminating full-attention quadratic complexity. Reports ~580k token context for end-to-end minute-level generation.
+  > Semantic routing of tokens to groups for sparse attention (similar to MoE routing but for attention), eliminating full-attention quadratic complexity. Generates minute-level 480p@24fps video with ~580k token context end-to-end.
 
 ---
 
@@ -164,7 +200,7 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
   > Replaces single global 3D memory with "multiple local geometric memories": coverage-driven retrieval of local spatial memories + multi-anchor weaving controller to fuse cross-viewpoint inconsistencies. Code available.
 
 - [**2026**] **UCM**, "UCM: Unifying Camera Control and Memory with Time-aware Positional Encoding Warping for World Models". [![arXiv](https://img.shields.io/badge/arXiv-2602.22960-b31b1b.svg)](https://arxiv.org/abs/2602.22960) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://humanaigc.github.io/ucm-webpage/)
-  > Uses full history frames as memory, but builds token-level explicit correspondence via "time-aware PE warp"; proposes dual-stream DiT block-sparse attention to reduce memory token cost.
+  > Uses full history frames as memory, but builds token-level explicit correspondence via "time-aware PE warp"; proposes dual-stream DiT block-sparse attention to reduce memory token cost. Reports camera control error (RotErr/TransErr) and consistency metrics (PSNR/SSIM/LPIPS); 2.4 sec/frame inference on A100.
 
 - [**2025**] **Spatia**, "Spatia: Video Generation with Updatable Spatial Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.15716-b31b1b.svg)](https://arxiv.org/abs/2512.15716) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://zhaojingjing713.github.io/Spatia/)
   > Explicitly maintains a 3D scene point cloud as persistent spatial memory, continuously updated via visual SLAM; generation is conditioned on this memory with dynamic/static decoupling.
@@ -176,7 +212,7 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
   > Action-Guided 3D Geometry Module (AG3D) constructs point cloud to constrain viewpoint changes; History Cache Retrieval (HCR) retrieves history frames as conditions to mitigate multi-step interactive drift.
 
 - [**2025**] **WorldPlay**, "WorldPlay: Towards Long-Term Geometric Consistency for Real-Time Interactive World Modeling". [![arXiv](https://img.shields.io/badge/arXiv-2512.14614-b31b1b.svg)](https://arxiv.org/abs/2512.14614)
-  > Reconstituted Context Memory: rebuilds usable context while keeping key geometric frames accessible; Context Forcing distillation training to maintain memory utilization capability.
+  > Reconstituted Context Memory: rebuilds usable context while keeping key geometric frames accessible; Context Forcing distillation training to maintain memory utilization capability. Claims 720p@24FPS streaming generation with improved consistency.
 
 ---
 
@@ -185,7 +221,7 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 *Aligning training-inference, suppressing long-rollout error accumulation (forcing, self-distillation, cycle consistency, etc.).*
 
 - [**2026**] **LIVE**, "LIVE: Long-horizon Interactive Video World Modeling". [![arXiv](https://img.shields.io/badge/arXiv-2602.03747-b31b1b.svg)](https://arxiv.org/abs/2602.03747)
-  > Proposes cycle-consistency training objective: forward rollout followed by reverse generation to reconstruct initial state, using diffusion loss to constrain long-rollout error propagation; with progressive curriculum training.
+  > Proposes cycle-consistency training objective: forward rollout followed by reverse generation to reconstruct initial state, using diffusion loss to constrain long-rollout error propagation; with progressive curriculum training. Claims SOTA on long-rollout benchmarks and stable generation beyond training length.
 
 > [!NOTE]
 > Several papers listed in other sections also contain significant training stability components:
@@ -214,7 +250,7 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 *End-to-end open-source world model systems with long-term memory as an engineering capability.*
 
 - [**2026**] **LingBot-World**, "Advancing Open-source World Models". [![arXiv](https://img.shields.io/badge/arXiv-2601.20540-b31b1b.svg)](https://arxiv.org/abs/2601.20540) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/robbyant/lingbot-world)
-  > Releases open-source world simulator LingBot-World: emphasizes minute-level temporal context consistency (long-term memory) and real-time interactive capability. Public code and model downloads (HuggingFace/ModelScope).
+  > Releases open-source world simulator LingBot-World: emphasizes minute-level temporal context consistency (long-term memory) and real-time interactive capability. Claims 16 FPS with <1s latency. Public code and model downloads (HuggingFace/ModelScope).
 
 ---
 
