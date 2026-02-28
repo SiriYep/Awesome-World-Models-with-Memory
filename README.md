@@ -71,30 +71,36 @@ The overall trend is: memory mechanisms are shifting from "stuff more frames int
 
 ```mermaid
 flowchart TD
-  A[Conditional Input<br/>Frame / Text / Action / Camera] --> B[Encoder<br/>VAE / Tokenizer]
-  B --> C[Generation Backbone<br/>DiT / AR-Video-Diffusion]
-  C --> D[Output Video / Next Frame]
+  A[Conditional Input<br/>Initial Frame / Reference Image<br/>Text Prompt<br/>Action or Camera Trajectory] --> B[Encoder<br/>VAE / Tokenizer]
+  B --> C[Generation Backbone<br/>DiT / AR-Video-Diffusion / World-Model]
+  C --> D[Output Video Segment / Next Frame]
 
-  subgraph M["Memory Modules (Composable)"]
-    direction LR
-    M1[External Memory<br/>Memory Bank<br/>Retrieve + Update]
-    M2[Compressed Memory<br/>Packing / HPMC<br/>Token Compressor]
-    M3[Hidden State<br/>RNN / LSTM / SSM]
-    M4[Geometric Memory<br/>Point Cloud / Surfel<br/>PE Alignment]
+  subgraph M[Memory Modules - Composable]
+    M1[External Explicit Memory<br/>Memory Bank / Cache<br/>Retrieve + Update]
+    M2[Compressed / Hierarchical Memory<br/>Packing / HPMC / Token Compressor]
+    M3[Hidden State Persistence<br/>RNN / LSTM / SSM]
+    M4[Geometric / Spatial Memory<br/>Point Cloud / Surfel / Local Anchors<br/>or PE Alignment]
   end
 
-  B --> M
-  M --> C
+  B --> M1
+  B --> M2
+  B --> M3
+  B --> M4
 
-  subgraph E["System-Level Scalability (Inference-Side)"]
-    direction LR
-    E1[KV-cache Compression<br/>TempCache]
-    E2[Sparse Attention<br/>AnnSA / MoGA]
-    E3[Context Packing<br/>FramePack]
+  M1 --> C
+  M2 --> C
+  M3 --> C
+  M4 --> C
+
+  subgraph E[System-Level Scalability - Mostly Inference-Side]
+    E1[KV-cache Compression<br/>TempCache etc.]
+    E2[Sparse Attention / Routing<br/>AnnSA / AnnCA / MoGA]
+    E3[Fixed Context Packing<br/>FramePack]
   end
 
-  B --> E
-  E --> C
+  E1 --> C
+  E2 --> C
+  E3 --> C
 ```
 
 ---
