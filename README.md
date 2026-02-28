@@ -154,6 +154,9 @@ flowchart TD
 - [**2025**] **LoViC**, "LoViC: Efficient Long Video Generation with Context Compression". [![arXiv](https://img.shields.io/badge/arXiv-2507.12952-b31b1b.svg)](https://arxiv.org/abs/2507.12952)
   > FlexFormer: jointly compresses video and text into a unified latent, supporting adjustable compression rates and long video segment-wise generation.
 
+- [**2025**] **PFP**, "Pretraining Frame Preservation in Autoregressive Video Memory Compression". [![arXiv](https://img.shields.io/badge/arXiv-2512.23851-b31b1b.svg)](https://arxiv.org/abs/2512.23851)
+  > Neural network structure that compresses long videos into short contexts (~5k tokens for 20s video) with a pretraining objective to preserve high-frequency details of single frames at arbitrary temporal positions. Pretrained models can be directly fine-tuned as memory encoders for autoregressive video models, enabling long history memory with low context cost. By Lvmin Zhang (FramePack author) et al.
+
 ---
 
 ## Differentiable Neural Storage & Hidden State Enhancement
