@@ -6,6 +6,8 @@
 
 **A Curated List of Memory-Augmented World Models for Video Generation, organized by two fundamental paradigms: Action-Conditioned Interactive World Models and Pure Video Generation with Narrative Memory.**
 
+*Last Updated: 2026-03-05 | Papers: 40+ | Benchmarks: 12+*
+
 </div>
 
 ---
@@ -19,6 +21,11 @@
 ---
 
 ## Overview
+
+> **Badge Legend:**
+> [![arXiv](https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg)](#) Paper on arXiv
+> [![Code](https://img.shields.io/badge/Code-GitHub-green)](#) Source code available
+> [![Website](https://img.shields.io/badge/Website-Link-blue)](#) Project page
 
 - [Two Paradigms of Memory in World Models](#two-paradigms-of-memory-in-world-models)
 - **Part I -- Action-Conditioned Interactive World Models**
@@ -146,7 +153,7 @@ flowchart LR
 
 *RNN/LSTM, SSM, recurrent states as persistent internal state for interactive world simulation.*
 
-- [**2026**] **Flow Equivariant World Models**, "Flow Equivariant World Models: Memory for Partially Observed Dynamic Environments". [![arXiv](https://img.shields.io/badge/arXiv-2601.01075-b31b1b.svg)](https://arxiv.org/abs/2601.01075) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://flowequivariantworldmodels.github.io/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://flowequivariantworldmodels.github.io/)
+- [**2026**] **Flow Equivariant World Models**, "Flow Equivariant World Models: Memory for Partially Observed Dynamic Environments". [![arXiv](https://img.shields.io/badge/arXiv-2601.01075-b31b1b.svg)](https://arxiv.org/abs/2601.01075) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://flowequivariantworldmodels.github.io/)
   > Unifies ego-motion and object motion as Lie group flows, building equivariant latent memory map; maintains stable world state in partially observable environments.
 
 - [**2025**] **RELIC**, "RELIC: Interactive Video World Model with Long-Horizon Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.04040-b31b1b.svg)](https://arxiv.org/abs/2512.04040) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://relic-worldmodel.github.io/)
@@ -201,6 +208,9 @@ flowchart LR
   > Looped-trajectory Minecraft revisit dataset, specifically examining spatial consistency and memory module capability. ~250 hours, 20M frames. Open-sources dataset, benchmark, and code.
 
 ---
+
+<p align="right"><a href="#awesome-world-models-with-memory">Back to Top</a></p>
+
 ---
 
 # Part II: Video Generation with Memory (Narrative & Multi-Shot)
@@ -233,7 +243,7 @@ The mainstream memory designs for video generation can be grouped into four para
 - [**2025**] **OneStory**, "OneStory: Coherent Multi-Shot Video Generation with Adaptive Memory". [![arXiv](https://img.shields.io/badge/arXiv-2512.07802-b31b1b.svg)](https://arxiv.org/abs/2512.07802) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://zhaochongan.github.io/projects/OneStory/)
   > Reformulates multi-shot generation as next-shot prediction; Frame Selection builds semantically-relevant global memory from history; Adaptive Conditioner does importance-guided patch compression and direct injection. Trained on 60K multi-shot dataset.
 
-- [**2025**] **StoryMem**, "StoryMem: Memory-to-Video for Multi-Shot Story Generation". *arXiv 2025.*
+- [**2025**] **StoryMem**, "StoryMem: Memory-to-Video for Multi-Shot Story Generation". [![arXiv](https://img.shields.io/badge/arXiv-2512.19539-b31b1b.svg)](https://arxiv.org/abs/2512.19539)
   > Memory-to-Video (M2V) design: maintains a compact keyframe memory bank from historical shots; injects memory via latent concatenation and negative RoPE shift; only requires LoRA fine-tuning. Releases ST-Bench (30 story scripts, 300 fine-grained video prompts covering character/scene/event/shot type). Represents the "lightweight memory injection + prompt-set evaluation" engineering direction.
 
 ---
@@ -260,7 +270,7 @@ The mainstream memory designs for video generation can be grouped into four para
 
 *Generate global keyframes first as "memory anchors", then locally complete intermediate frames -- providing global consistency constraints and reducing error accumulation through hierarchical generation.*
 
-- [**2025**] **TokensGen**, "TokensGen: Multi-Turn Token Generation for Long Video Generation". *ICCV 2025.*
+- [**2025**] **TokensGen**, "TokensGen: Multi-Turn Token Generation for Long Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2507.15728-b31b1b.svg)](https://arxiv.org/abs/2507.15728)
   > Two-stage pipeline: T2To generates global compressed tokens as cross-clip consistency anchors; To2V generates video conditioned on these tokens. Adaptive FIFO connection at inference reduces boundary artifacts. Cited by 5.
 
 - [**2023**] **NUWA-XL**, "NUWA-XL: Diffusion over Diffusion for eXtremely Long Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2303.12346-b31b1b.svg)](https://arxiv.org/abs/2303.12346)
@@ -272,10 +282,10 @@ The mainstream memory designs for video generation can be grouped into four para
 
 *Infinite-length video via streaming/queue-based inference, with memory as sliding context or recursive guidance. Core challenge: maintaining consistency despite the streaming constraint.*
 
-- [**2025**] **Ouroboros-Diffusion**, "Ouroboros-Diffusion: Long Video Generation via Autoregressive Diffusion with Cross-Frame Alignment". *AAAI 2025.*
+- [**2025**] **Ouroboros-Diffusion**, "Ouroboros-Diffusion: Long Video Generation via Autoregressive Diffusion with Cross-Frame Alignment". [![arXiv](https://img.shields.io/badge/arXiv-2501.09019-b31b1b.svg)](https://arxiv.org/abs/2501.09019)
   > Enhances FIFO-Diffusion framework with SACFA (Subject-Aware Cross-Frame Alignment attention for subject consistency) and self-recurrent guidance (using queue-head history to guide queue-tail denoising). Reports improved subject/structural consistency on VBench. Cited by 4.
 
-- [**2025**] **Presto**, "Presto: Progressive Pretraining Enhances Synthetic Data for Text-to-Video Generation". *CVPR 2025.*
+- [**2025**] **Presto**, "Presto: Progressive Pretraining Enhances Synthetic Data for Text-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2412.01316-b31b1b.svg)](https://arxiv.org/abs/2412.01316)
   > Segmented Cross-Attention (SCA): splits hidden states by time segment and aligns each to its sub-caption for long-range semantic consistency. Builds LongTake-HD dataset (261k long-take videos with total caption + 5 progressive sub-captions). Cited by 8.
 
 - [**2024**] **FIFO-Diffusion**, "FIFO-Diffusion: Generating Infinite Videos from Text without Training". [![arXiv](https://img.shields.io/badge/arXiv-2312.12480-b31b1b.svg)](https://arxiv.org/abs/2312.12480)
@@ -287,16 +297,16 @@ The mainstream memory designs for video generation can be grouped into four para
 
 *Use reference entities (characters, objects, styles) as "long-term memory anchors" via cross-frame/cross-shot alignment mechanisms to preserve identity and appearance. These approaches explicitly address the "identity vs. motion" conflict -- attention features encode both identity and motion, so naive sharing sacrifices one for the other.*
 
-- [**2025**] **ShotAdapter**, "ShotAdapter: Multi-Shot Video Generation with Full Attention". *CVPR 2025.*
+- [**2025**] **ShotAdapter**, "ShotAdapter: Multi-Shot Video Generation with Full Attention". [![arXiv](https://img.shields.io/badge/arXiv-2505.07652-b31b1b.svg)](https://arxiv.org/abs/2505.07652)
   > Builds multi-shot training data pipeline from single-shot data; lightweight fine-tuning of pretrained T2V for multi-shot video generation with shot control. CVPR 2025. Cited by 11.
 
 - [**2024**] **StoryDiffusion**, "StoryDiffusion: Consistent Self-Attention for Long-Range Image and Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2405.01434-b31b1b.svg)](https://arxiv.org/abs/2405.01434)
   > Consistent Self-Attention: uses reference tokens to guide self-attention for cross-shot identity preservation; Semantic Motion Predictor converts image sequences to video while maintaining subject stability. NeurIPS 2024. Code available.
 
-- [**2024**] **Video Storyboarding**, "Video Storyboarding: Training-Free Multi-Shot Video Generation via Feature Sharing". *arXiv 2024 / NVIDIA.*
+- [**2024**] **Video Storyboarding**, "Video Storyboarding: Training-Free Multi-Shot Video Generation via Feature Sharing". [![arXiv](https://img.shields.io/badge/arXiv-2412.07750-b31b1b.svg)](https://arxiv.org/abs/2412.07750)
   > Training-free cross-shot feature sharing and query injection for character consistency. Provides a mechanistic explanation of the "identity vs. motion" conflict: shared attention features simultaneously carry identity and motion information, so simple sharing sacrifices dynamics. Cited by 4.
 
-- [**2023**] **VideoAssembler / MagDiff**, "VideoAssembler: Identity-Consistent Video Generation with Reference Entities using Diffusion Model". *arXiv 2023.*
+- [**2023**] **VideoAssembler / MagDiff**, "VideoAssembler: Identity-Consistent Video Generation with Reference Entities using Diffusion Model". [![arXiv](https://img.shields.io/badge/arXiv-2311.17338-b31b1b.svg)](https://arxiv.org/abs/2311.17338)
   > Introduces reference entity alignment (subject-driven, prompt-adaptive) to reduce per-subject fine-tuning dependency and strengthen identity preservation across shots. Cited by 19.
 
 ---
@@ -332,13 +342,13 @@ The mainstream memory designs for video generation can be grouped into four para
 - [**2025**] **TTT-Video-DiT**, "One-Minute Video Generation with Test-Time Training". [![arXiv](https://img.shields.io/badge/arXiv-2504.05298-b31b1b.svg)](https://arxiv.org/abs/2504.05298) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://test-time-training.github.io/video-dit/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/test-time-training/ttt-video-dit)
   > Inserts Test-Time Training (TTT) layers into a pretrained Transformer, whose hidden states are themselves neural networks (more expressive than SSM/Mamba). Enables one-minute video generation (300k+ tokens) from text storyboards. Leads baselines by 34 Elo points. CVPR 2025. *TTT layers function as a long-context sequence modeling layer rather than an explicit memory mechanism.*
 
-- [**2023**] **Reuse and Diffuse**, "Reuse and Diffuse: Iterative Denoising for Text-to-Video Generation". *OpenReview 2023.*
+- [**2023**] **Reuse and Diffuse**, "Reuse and Diffuse: Iterative Denoising for Text-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2309.03549-b31b1b.svg)](https://arxiv.org/abs/2309.03549)
   > Iteratively generates more frames by reusing previous clip's intermediate latent features and mimicking the diffusion process; reduces temporal jitter and computational cost. Establishes "trajectory reuse as implicit memory" pattern. Cited by 64.
 
 - [**2022/2023**] **Phenaki**, "Phenaki: Variable Length Video Generation From Open Domain Textual Description". [![arXiv](https://img.shields.io/badge/arXiv-2210.02399-b31b1b.svg)](https://arxiv.org/abs/2210.02399)
   > Video tokenizer with temporal causal attention for variable length; masked transformer generates video tokens from text, enabling story-style multi-prompt generation. Pioneered "narrative video from prompt sequences". ICLR 2023. Cited by 616.
 
-- [**2022**] **Flexible Diffusion Modeling of Long Videos**. *NeurIPS 2022.*
+- [**2022**] **Flexible Diffusion Modeling of Long Videos**. [![arXiv](https://img.shields.io/badge/arXiv-2205.11495-b31b1b.svg)](https://arxiv.org/abs/2205.11495)
   > At test time, can sample arbitrary frame subsets conditioned on any other frames -- treating "already-generated frames as selectively referenceable memory". Established "long-range conditional sampling schedule" paradigm with CARLA simulator data and semantic metrics. Cited by 386.
 
 - [**2022**] **LVDM**, "Latent Video Diffusion Models for High-Fidelity Long Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2211.13221-b31b1b.svg)](https://arxiv.org/abs/2211.13221)
@@ -360,22 +370,22 @@ The mainstream memory designs for video generation can be grouped into four para
 
 *Benchmarks that explicitly target cross-shot entity persistence, state continuity, and narrative coherence.*
 
-- [**2026**] **MSVBench**, "MSVBench: Benchmarking Multi-Shot Video Generation". *arXiv 2026.*
+- [**2026**] **MSVBench**, "MSVBench: Benchmarking Multi-Shot Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2602.23969-b31b1b.svg)](https://arxiv.org/abs/2602.23969)
   > The most direct benchmark for multi-shot long-term consistency. Hierarchical data structure (global characters/environments, scenes, shots); hybrid evaluation combining expert models and MLLMs. Covers face/character/background/clothes&color/relative size consistency, and critically introduces **State Shift & Persistence** as a metric -- the closest metric to directly testing memory (e.g., does an injury persist? is a picked-up object still gone?). Spearman correlation with human evaluation: 94.4%. Current scale: 20 story reconstructions from ViStoryBench.
 
-- [**2025**] **SeqBench**, "SeqBench: Evaluating Sequential Narrative Coherence in Text-to-Video Generation". *arXiv 2025.*
+- [**2025**] **SeqBench**, "SeqBench: Evaluating Sequential Narrative Coherence in Text-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2510.13042-b31b1b.svg)](https://arxiv.org/abs/2510.13042)
   > 320 prompts, 2,560 human-annotated videos (8 T2V models). Proposes Dynamic Temporal Graphs (DTG) as automatic metric to capture long-range dependency and event ordering. Tests "does the model remember what happened and in what order".
 
-- [**2025**] **ST-Bench** (released with StoryMem). *arXiv 2025.*
+- [**2025**] **ST-Bench** (released with StoryMem). [![arXiv](https://img.shields.io/badge/arXiv-2512.19539-b31b1b.svg)](https://arxiv.org/abs/2512.19539)
   > 30 story scripts, 300 fine-grained prompts including shot types, camera movements, character/scene/event details. Released in StoryMem's official repository. Suited for "multi-shot prompt-driven consistency" experiments.
 
-- [**2024/2025**] **TC-Bench**, "TC-Bench: Benchmarking Temporal Compositionality in Text-to-Video Generation". *ACL 2025.*
+- [**2024/2025**] **TC-Bench**, "TC-Bench: Benchmarking Temporal Compositionality in Text-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2406.08656-b31b1b.svg)](https://arxiv.org/abs/2406.08656)
   > Prompts describe explicit initial and final states to test whether temporal composition changes are completed correctly. Functions as a "state change memory test" -- did the model remember and execute the transition? Provides ground-truth videos and transition completion metrics. Most models fail at multi-stage state changes.
 
 - [**2023**] **StoryBench**, "StoryBench: A Multifaceted Benchmark for Continuous Story Visualization". [![arXiv](https://img.shields.io/badge/arXiv-2308.11606-b31b1b.svg)](https://arxiv.org/abs/2308.11606)
   > Continuous story visualization across action execution / story continuation / story generation tasks. "Given previous video as condition" inherently tests whether memory/history is correctly inherited. NeurIPS 2023. Official implementation available.
 
-- [**2026**] **VideoMemory 54-case**, "Multi-Shot Entity Consistency Evaluation Suite" (released with VideoMemory). *arXiv 2026.*
+- [**2026**] **VideoMemory 54-case**, "Multi-Shot Entity Consistency Evaluation Suite" (released with VideoMemory). [![arXiv](https://img.shields.io/badge/arXiv-2601.03655-b31b1b.svg)](https://arxiv.org/abs/2601.03655)
   > 54 test cases covering character/prop/background persistence scenarios. Small but directly targets entity-level cross-shot consistency. More hypothesis-driven than ecological, but closest to testing specific memory failure modes.
 
 ### Single-Shot Quality & Consistency Dimensions
@@ -385,37 +395,37 @@ The mainstream memory designs for video generation can be grouped into four para
 - [**2024**] **VBench**, "VBench: Comprehensive Benchmark Suite for Video Generative Models". [![arXiv](https://img.shields.io/badge/arXiv-2311.17982-b31b1b.svg)](https://arxiv.org/abs/2311.17982)
   > 16 hierarchical dimensions including subject consistency, background consistency, temporal flickering, motion smoothness. Prompt suite + evaluation pipeline + normalized scoring with quality/semantic weighting. De facto standard for single-shot video generation evaluation. CVPR 2024. Open-source.
 
-- [**2025**] **VBench-2.0**, "VBench-2.0: Advancing Video Generation Benchmark Suite for Intrinsic Faithfulness". *arXiv 2025.*
+- [**2025**] **VBench-2.0**, "VBench-2.0: Advancing Video Generation Benchmark Suite for Intrinsic Faithfulness". [![arXiv](https://img.shields.io/badge/arXiv-2503.21755-b31b1b.svg)](https://arxiv.org/abs/2503.21755)
   > Extends VBench beyond surface fidelity to "intrinsic faithfulness": human fidelity, controllability, creativity, physics, and commonsense. Combined VLM/LLM + expert model evaluation. Signals the trend from "visual artifacts" toward "world consistency / commonsense consistency". PyPI package available.
 
 - [**2024**] **EvalCrafter**, "EvalCrafter: Benchmarking and Evaluating Large Video Generation Models". [![arXiv](https://img.shields.io/badge/arXiv-2310.11440-b31b1b.svg)](https://arxiv.org/abs/2310.11440)
   > ~700 prompts, 17 objective metrics + subjective alignment. Comprehensive evaluation toolkit for T2V models including temporal consistency related metrics. CVPR 2024. Open-source.
 
-- [**2025**] **Video-Bench**, "Video-Bench: Human-Aligned Video Generation Benchmark". *CVPR 2025.*
+- [**2025**] **Video-Bench**, "Video-Bench: Human-Aligned Video Generation Benchmark". [![arXiv](https://img.shields.io/badge/arXiv-2504.04907-b31b1b.svg)](https://arxiv.org/abs/2504.04907)
   > 419 prompts (~70-90 per dimension), human annotations + MLLM evaluation protocol. Covers temporal consistency, motion quality, video-text consistency. Recommends 3x sampling per prompt to reduce random variance -- an important reproducibility guideline.
 
 ### Subject / Identity Consistency
 
 *Benchmarks specifically targeting reference-entity preservation -- the "identity memory" dimension.*
 
-- [**2025**] **OpenS2V-Eval / OpenS2V-5M** (OpenS2V-Nexus), "OpenS2V-Nexus: Subject-to-Video Generation". *arXiv 2025.*
+- [**2025**] **OpenS2V-Eval / OpenS2V-5M** (OpenS2V-Nexus), "OpenS2V-Nexus: Subject-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2505.20292-b31b1b.svg)](https://arxiv.org/abs/2505.20292)
   > OpenS2V-Eval: 180 prompts across 7 S2V scenarios; NexusScore / NaturalScore / GmeScore separately measure subject consistency, naturalness, and text relevance. OpenS2V-5M: 5M 720P subject-text-video triplets for training. Most sensitive benchmark for "reference subject as memory anchor" tasks.
 
-- [**2025**] **PortraitGala** (EchoShot), "Large-Scale Portrait Video Dataset for Cross-Shot Identity Consistency". *OpenReview 2025.*
+- [**2025**] **PortraitGala** (EchoShot), "Large-Scale Portrait Video Dataset for Cross-Shot Identity Consistency". [![arXiv](https://img.shields.io/badge/arXiv-2506.15838-b31b1b.svg)](https://arxiv.org/abs/2506.15838)
   > 600k clips, 400k identities, ~1k hours. Fine-grained portrait attribute/clothing/action captions. More of a "trainable consistency data asset" than pure evaluation, but enables large-scale cross-shot identity consistency research.
 
 ### Physical & Temporal Compositionality
 
 *Benchmarks testing whether generated videos obey physical laws and temporal logic -- complementary to memory consistency (consistent world state evolution requires remembering physics).*
 
-- [**2025**] **T2VPhysBench**, "T2VPhysBench: Benchmarking Physics Consistency in Text-to-Video Generation". *arXiv 2025.*
+- [**2025**] **T2VPhysBench**, "T2VPhysBench: Benchmarking Physics Consistency in Text-to-Video Generation". [![arXiv](https://img.shields.io/badge/arXiv-2505.00337-b31b1b.svg)](https://arxiv.org/abs/2505.00337)
   > Systematically tests T2V compliance with 12 basic physical laws using human evaluation protocol. Average compliance below 0.60 across all tested models. While not directly testing "memory", physical consistency requires persistent world-state awareness and causal coherence -- a complementary evaluation axis to entity memory.
 
 ### Datasets
 
-- [**2025**] **LongTake-HD** (released with Presto). 261k long-take videos with total caption + 5 progressive sub-captions. Designed for long-range coherence; often evaluated with VBench.
-- [**2025**] **ViStoryBench**. 80 story segments, 344 characters, 509 reference images. Upstream asset for constructing multi-shot evaluation materials; provides download scripts and toolchain.
-- [**2025**] **FlintstonesHD** (released with NUWA-XL). Long video generation benchmark based on The Flintstones. Details in paper.
+- [**2025**] **LongTake-HD** (released with Presto). 261k long-take videos with total caption + 5 progressive sub-captions. Designed for long-range coherence; often evaluated with VBench. [![arXiv](https://img.shields.io/badge/arXiv-2412.01316-b31b1b.svg)](https://arxiv.org/abs/2412.01316) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/Cakeyan/Presto)
+- [**2025**] **ViStoryBench**. 80 story segments, 344 characters, 509 reference images. Upstream asset for constructing multi-shot evaluation materials; provides download scripts and toolchain. [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/ViStoryBench/vistorybench)
+- [**2025**] **FlintstonesHD** (released with NUWA-XL). Long video generation benchmark based on The Flintstones. Details in paper. [![arXiv](https://img.shields.io/badge/arXiv-2303.12346-b31b1b.svg)](https://arxiv.org/abs/2303.12346)
 
 ### Evaluation Metrics Landscape
 
@@ -449,6 +459,8 @@ mindmap
 > - Identity / subject consistency evaluation should use public benchmarks (OpenS2V-Eval, PortraitGala) or explicit reference assets (ViStoryBench / MSVBench reference images) to avoid text-only ambiguity
 
 ---
+
+<p align="right"><a href="#awesome-world-models-with-memory">Back to Top</a></p>
 
 ## Related World Model Lists
 
