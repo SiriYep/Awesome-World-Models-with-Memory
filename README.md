@@ -207,6 +207,9 @@ flowchart LR
 - [**2025**] **LoopNav**, "Toward Memory-Aided World Models: Benchmarking via Spatial Consistency". [![arXiv](https://img.shields.io/badge/arXiv-2505.22976-b31b1b.svg)](https://arxiv.org/abs/2505.22976)
   > Looped-trajectory Minecraft revisit dataset, specifically examining spatial consistency and memory module capability. ~250 hours, 20M frames. Open-sources dataset, benchmark, and code.
 
+- [**2026**] **WorldMemBench**, "WorldMemBench: A Comprehensive Benchmark for Memory of Video World Models". [![arXiv](https://img.shields.io/badge/arXiv-2610.19063-b31b1b.svg)](https://arxiv.org/abs/2610.19063) [![Website](https://img.shields.io/badge/Website-Link-blue)](https://zju-real.github.io/WorldMemBench/) [![Code](https://img.shields.io/badge/Code-GitHub-green)](https://github.com/ZJU-REAL/WorldMemBench)
+  > Evaluates static retention and dynamic state evolution in video world models using controlled camera departures and repeated revisits, covering human, object, and environment memory alongside video quality and camera following.
+
 ---
 
 <p align="right"><a href="#awesome-world-models-with-memory">Back to Top</a></p>
